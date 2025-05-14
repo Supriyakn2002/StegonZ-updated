@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stegonz - Marketing That Sells</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #000000;
+      --secondary: #333333;
+      --accent: #25D366;
+      --light: #FFFFFF;
+      --text: #222222;
+      --text-light: #777777;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* Navigation */
+    header {
+      background: var(--light);
+      padding: 1.5rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                  url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      padding-top: 80px;
+    }
+    
+    .hero-content {
+      max-width: 600px;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    }
+    
+    /* Parallax Thumbnail Section */
+    .parallax {
+      background: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') fixed center center/cover;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    
+    .parallax-overlay {
+      background: rgba(0,0,0,0.6);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .thumbnail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .thumbnail-item {
+      background: var(--light);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    
+    .thumbnail-item:hover {
+      transform: translateY(-10px);
+    }
+    
+    .thumbnail-img {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .thumbnail-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .thumbnail-item:hover .thumbnail-img img {
+      transform: scale(1.1);
+    }
+    
+    .thumbnail-content {
+      padding: 1.5rem;
+    }
+    
+    .thumbnail-content h3 {
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Banner Slider */
+    .banner-slider {
+      height: 70vh;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s;
+      display: flex;
+      align-items: center;
+    }
+    
+    .slide.active {
+      opacity: 1;
+    }
+    
+    .slide-1 {
+      background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center center/cover;
+    }
+    
+    .slide-2 {
+      background: url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center center/cover;
+    }
+    
+    .slide-3 {
+      background: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center center/cover;
+    }
+    
+    .slide-content {
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 3rem;
+      max-width: 600px;
+      margin-left: 10%;
+    }
+    
+    .slider-nav {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1rem;
+      z-index: 10;
+    }
+    
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+    }
+    
+    .slider-dot.active {
+      background: var(--accent);
+    }
+    
+    /* Lead Magnet */
+    .lead-magnet {
+      background: var(--light);
+      padding: 4rem 0;
+      text-align: center;
+    }
+    
+    .lead-box {
+      background: white;
+      border-radius: 8px;
+      padding: 3rem;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    
+    .lead-box h2 {
+      margin-bottom: 1rem;
+    }
+    
+    .lead-box p {
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+    
+    .email-input {
+      display: flex;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .email-input input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px 0 0 4px;
+      font-size: 1rem;
+    }
+    
+    .email-input button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0 1.5rem;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 4rem 0 2rem;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-links h3 {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      text-align: center;
+      color: #aaa;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .thumbnail-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .slide-content {
+        margin-left: 5%;
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">STEGONZ</div>
+        <div class="nav-links">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Blog</a>
+          <a href="#">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Marketing That Sells — Not Just Shouts</h1>
+        <p>We combine strategic marketing with direct sales execution to deliver real revenue, not just leads.</p>
+        <a href="https://wa.me/916360513052" class="cta-button">Chat on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parallax Thumbnail Section -->
+  <section class="parallax">
+    <div class="parallax-overlay"></div>
+    <div class="container">
+      <div class="thumbnail-grid">
+        <div class="thumbnail-item">
+          <div class="thumbnail-img">
+            <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Ad Production">
+          </div>
+          <div class="thumbnail-content">
+            <h3>Ad Production</h3>
+            <p>From concept to final cut, we create ads that convert.</p>
+          </div>
+        </div>
+        
+        <div class="thumbnail-item">
+          <div class="thumbnail-img">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Web Development">
+          </div>
+          <div class="thumbnail-content">
+            <h3>Web Development</h3>
+            <p>Fast, beautiful websites designed for conversions.</p>
+          </div>
+        </div>
+        
+        <div class="thumbnail-item">
+          <div class="thumbnail-img">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Sales Execution">
+          </div>
+          <div class="thumbnail-content">
+            <h3>Sales Execution</h3>
+            <p>We don't just generate leads — we close deals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner Slider -->
+  <section class="banner-slider">
+    <div class="slide slide-1 active">
+      <div class="slide-content">
+        <h2>Ad Production That Converts</h2>
+        <p>From product shoots to corporate films, we handle everything from pre-production to final delivery.</p>
+      </div>
+    </div>
+    <div class="slide slide-2">
+      <div class="slide-content">
+        <h2>Websites Built for Sales</h2>
+        <p>Modern, UX-first websites and landing pages that are fast and mobile-friendly.</p>
+      </div>
+    </div>
+    <div class="slide slide-3">
+      <div class="slide-content">
+        <h2>Direct Sales Execution</h2>
+        <p>From funnels to WhatsApp marketing — we focus on closing deals, not just generating leads.</p>
+      </div>
+    </div>
+    <div class="slider-nav">
+      <div class="slider-dot active" data-slide="0"></div>
+      <div class="slider-dot" data-slide="1"></div>
+      <div class="slider-dot" data-slide="2"></div>
+    </div>
+  </section>
+
+  <!-- Lead Magnet -->
+  <section class="lead-magnet">
+    <div class="container">
+      <div class="lead-box">
+        <h2>Get Our Free Marketing Checklist</h2>
+        <p>Download our 10-point checklist to optimize your marketing for actual sales, not just visibility.</p>
+        <div class="email-input">
+          <input type="email" placeholder="Your email address">
+          <button>Download</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <div class="footer-logo">STEGONZ</div>
+          <p>Marketing that sells — not just shouts. We're your strategic partner for ad production, web development, and direct sales execution.</p>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Case Studies</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#">Ad Production</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">Sales Funnels</a></li>
+            <li><a href="#">WhatsApp Marketing</a></li>
+            <li><a href="#">CRM Setup</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="tel:+916360513052">+91 6360513052</a></li>
+            <li><a href="mailto:hello@stegonz.com">hello@stegonz.com</a></li>
+            <li><a href="https://wa.me/916360513052">WhatsApp Chat</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Stegonz. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple slider functionality
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    let currentSlide = 0;
+    
+    function showSlide(n) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+    
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+    
+    // Auto-advance slides every 5 seconds
+    setInterval(nextSlide, 5000);
+    
+    // Click handlers for dots
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showSlide(index);
+      });
+    });
+  </script>
+</body>
+</html>
