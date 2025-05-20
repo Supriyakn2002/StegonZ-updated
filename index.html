@@ -26,6 +26,7 @@
       font-family: 'Inter', sans-serif;
       color: var(--text);
       line-height: 1.6;
+      background-color: #d1dafa; /* New body background color */
     }
     
     .container {
@@ -36,7 +37,7 @@
     
     /* Navigation */
     header {
-      background: var(--light);
+      background: #537CFF; /* New header background color */
       padding: 1.5rem 0;
       position: fixed;
       width: 100%;
@@ -54,7 +55,7 @@
     .logo {
       font-weight: 700;
       font-size: 1.5rem;
-      color: var(--primary);
+      color: var(--light); /* Changed to white for better contrast on blue */
       font-family: 'Lilita One', cursive;
     }
     
@@ -65,7 +66,7 @@
     
     .nav-links a {
       text-decoration: none;
-      color: var(--text);
+      color: var(--light); /* Changed to white for better contrast on blue */
       font-weight: 500;
       transition: color 0.3s;
     }
@@ -79,7 +80,7 @@
       height: 100vh;
       display: flex;
       align-items: center;
-      background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+      background: linear-gradient(rgba(209,218,250,0.9), rgba(209,218,250,0.9)), 
                   url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
       padding-top: 80px;
     }
@@ -114,6 +115,12 @@
     .cta-button:hover {
       transform: translateY(-3px);
       box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    }
+    
+    /* Section styling for navigation targets */
+    section {
+      padding: 6rem 0;
+      background-color: #d1dafa; /* Added to ensure sections have the new background */
     }
     
     /* Parallax Thumbnail Section */
@@ -310,7 +317,6 @@
       font-weight: 700;
       margin-bottom: 1rem;
       font-family: 'Lilita One', cursive;
-
     }
     
     .footer-links h3 {
@@ -375,18 +381,18 @@
       <nav>
         <div class="logo">STEGOnZ</div>
         <div class="nav-links">
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Services</a>
-          <a href="#">Blog</a>
-          <a href="#">Contact</a>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#blog">Blog</a>
+          <a href="#contact">Contact</a>
         </div>
       </nav>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" id="home">
     <div class="container">
       <div class="hero-content">
         <h1>Marketing That Sells — Not Just Shouts</h1>
@@ -396,8 +402,16 @@
     </div>
   </section>
 
-  <!-- Parallax Thumbnail Section -->
-  <section class="parallax">
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <h2>About Us</h2>
+      <p>Stegonz is a full-service marketing agency focused on delivering measurable results. We bridge the gap between marketing and sales to drive real revenue growth for our clients.</p>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="parallax" id="services">
     <div class="parallax-overlay"></div>
     <div class="container">
       <div class="thumbnail-grid">
@@ -431,6 +445,14 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog">
+    <div class="container">
+      <h2>Latest From Our Blog</h2>
+      <p>Check back soon for our latest marketing insights and tips.</p>
     </div>
   </section>
 
@@ -475,6 +497,14 @@
     </div>
   </section>
 
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>Ready to grow your business? Get in touch with our team today.</p>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer>
     <div class="container">
@@ -487,11 +517,11 @@
         <div class="footer-links">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Case Studies</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
         
@@ -510,7 +540,7 @@
           <h3>Contact</h3>
           <ul>
             <li><a href="tel:+916360513052">+91 6360513052</a></li>
-            <li><a href="mailto:hello@stegonz.com">hello@stegonz.com</a></li>
+            <li><a href="mailto:Stegonzmarketing@gmail.com">Stegonzmarketing@gmail.com</a></li>
             <li><a href="https://wa.me/916360513052">WhatsApp Chat</a></li>
           </ul>
         </div>
@@ -548,6 +578,24 @@
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
         showSlide(index);
+      });
+    });
+    
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80, // Adjust for header height
+            behavior: 'smooth'
+          });
+        }
       });
     });
   </script>
